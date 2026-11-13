@@ -5,7 +5,7 @@
 A standalone neon digital clock for the Omarchy bar. It does not replace the
 built-in clock: both can be placed in the bar at the same time.
 
-![Neon Clock preview](preview/neon-clock-preview.png)
+![Neon Clock in the Omarchy bar](screenshots/neon-clock-bar.png)
 
 ## Features
 
@@ -28,6 +28,8 @@ Right-click the clock to open the control panel:
 - Show or hide seconds.
 - Digit color: yellow, green, red, purple, orange, white, black.
 - Digit size: small, medium, large.
+
+![Neon Clock control panel](screenshots/neon-clock-controls.png)
 
 Settings are stored inline on this plugin's entry in
 `~/.config/omarchy/shell.json`:
