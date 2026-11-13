@@ -9,7 +9,7 @@ built-in clock: both can be placed in the bar at the same time.
 
 ## Features
 
-- Outlined neon digits in yellow, green, red, purple, orange, white, or black.
+- Outlined neon digits in yellow, green, red, purple, light blue, orange, white, or black.
   White and black suit light bars.
 - Three digit sizes: small, medium, large.
 - 24-hour or 12-hour display; 12-hour mode adds AM/PM.
@@ -26,7 +26,7 @@ Right-click the clock to open the control panel:
 
 - 24-hour or 12-hour time.
 - Show or hide seconds.
-- Digit color: yellow, green, red, purple, orange, white, black.
+- Digit color: yellow, green, red, purple, light blue, orange, white, black.
 - Digit size: small, medium, large.
 
 ![Neon Clock control panel](screenshots/neon-clock-controls.png)

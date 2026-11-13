@@ -70,7 +70,7 @@ requiredGlyphs.forEach(function(glyph) {
 
 // Palette: named colours including light-bar white and black, yellow fallback,
 // and complete paint triples.
-assert.deepStrictEqual(Palette.ORDER, ["yellow", "green", "red", "purple", "orange", "white", "black"])
+assert.deepStrictEqual(Palette.ORDER, ["yellow", "green", "red", "purple", "lightblue", "orange", "white", "black"])
 Palette.ORDER.forEach(function(name) {
   var color = Palette.colorFor(name)
   assert.ok(color.body && color.glow && color.hot, "incomplete palette for " + name)
@@ -80,6 +80,7 @@ assert.strictEqual(Palette.normalizedColor("RED"), "red")
 assert.strictEqual(Palette.normalizedColor("cyan"), "yellow")
 assert.strictEqual(Palette.normalizedColor(undefined), "yellow")
 assert.strictEqual(Palette.labelFor("purple"), "Purple")
+assert.strictEqual(Palette.labelFor("lightblue"), "Light blue")
 assert.strictEqual(Palette.labelFor("black"), "Black")
 
 // Manifest options must stay in step with the panel's palette and size order.
