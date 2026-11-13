@@ -5,7 +5,7 @@
 A standalone neon digital clock for the Omarchy bar. It does not replace the
 built-in clock: both can be placed in the bar at the same time.
 
-![Neon Clock in the Omarchy bar](screenshots/neon-clock-bar.png)
+![Neon Clock in the Omarchy bar](screenshots/neon-clock-upper-left.png)
 
 ## Features
 
