@@ -18,6 +18,12 @@ PopupCard {
   open: hostWidget ? hostWidget.panelOpen : false
 
   readonly property string activeColor: hostWidget ? hostWidget.digitColor : "yellow"
+  readonly property string activeSize: hostWidget ? hostWidget.digitSize : "large"
+
+  function titleCase(value) {
+    var text = String(value || "")
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  }
 
   contentWidth: fittedContentWidth(Style.space(264))
   contentHeight: fittedContentHeight(column.implicitHeight)
@@ -66,8 +72,9 @@ PopupCard {
         font.bold: true
       }
 
-      Row {
-        spacing: Style.spacing.sm
+      Flow {
+        width: parent.width
+        spacing: Style.spacing.xs
 
         Repeater {
           model: Palette.ORDER
@@ -79,7 +86,7 @@ PopupCard {
 
             readonly property bool selected: root.activeColor === modelData
 
-            width: Style.space(30)
+            width: Style.space(26)
             height: width
 
             Rectangle {
@@ -105,6 +112,37 @@ PopupCard {
               cursorShape: Qt.PointingHandCursor
               onClicked: if (root.hostWidget) root.hostWidget.setOption("digitColor", swatch.modelData)
             }
+          }
+        }
+      }
+    }
+
+    Column {
+      width: column.width
+      spacing: Style.spacing.xs
+
+      Text {
+        text: "Digit size · " + root.titleCase(root.activeSize)
+        textFormat: Text.PlainText
+        color: Commons.Color.foreground
+        font.family: Style.font.family
+        font.pixelSize: Style.font.body
+        font.bold: true
+      }
+
+      Row {
+        spacing: Style.spacing.xs
+
+        Repeater {
+          model: ["small", "medium", "large"]
+
+          delegate: Button {
+            required property string modelData
+
+            text: root.titleCase(modelData)
+            selected: root.activeSize === modelData
+            bordered: true
+            onClicked: if (root.hostWidget) root.hostWidget.setOption("digitSize", modelData)
           }
         }
       }

@@ -14,6 +14,7 @@ BarWidget {
   readonly property bool showSeconds: setting("showSeconds", false) === true
   readonly property string digitColor: Palette.normalizedColor(setting("digitColor", "yellow"))
   readonly property var palette: Palette.colorFor(digitColor)
+  readonly property string digitSize: Model.normalizedDigitSize(setting("digitSize", "large"))
 
   // The clock owns the popup state so the bar's popout coordinator sees one
   // stable identity for this widget.
@@ -24,8 +25,8 @@ BarWidget {
 
   readonly property int contentPadding: Math.max(2, Math.round(Style.space(3)))
   readonly property real digitHeight: vertical
-    ? Math.max(9, Math.round(barSize * 0.57))
-    : Math.max(11, Math.round(barSize * 0.82))
+    ? Math.max(8, Math.round(barSize * Model.verticalSizeFactor(digitSize)))
+    : Math.max(10, Math.round(barSize * Model.horizontalSizeFactor(digitSize)))
 
   implicitWidth: button.implicitWidth
   implicitHeight: button.implicitHeight
@@ -90,7 +91,7 @@ BarWidget {
     fixedHeight: root.vertical
       ? time.implicitHeight + root.contentPadding * 2
       : root.barSize
-    tooltipText: Model.tooltipFor(root.use24Hour, root.showSeconds, root.digitColor)
+    tooltipText: Model.tooltipFor(root.use24Hour, root.showSeconds, root.digitColor, root.digitSize)
     pressFeedbackButtons: Qt.NoButton
 
     onPressed: function(mouseButton) {

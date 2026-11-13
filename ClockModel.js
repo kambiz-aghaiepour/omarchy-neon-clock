@@ -41,18 +41,45 @@ function msUntilNextTick(nowMs, step) {
   return safeStep - (nowMs % safeStep)
 }
 
-function tooltipFor(use24Hour, showSeconds, digitColor) {
+var DIGIT_SIZES = ["small", "medium", "large"]
+
+function normalizedDigitSize(size) {
+  var key = String(size || "").toLowerCase()
+  return DIGIT_SIZES.indexOf(key) === -1 ? "large" : key
+}
+
+// Fractions of the bar thickness used for the glyph box. Large is the size the
+// clock shipped with; the smaller steps keep the same proportions so the roll
+// animation and spacing scale with the digits.
+function horizontalSizeFactor(size) {
+  return normalizedDigitSize(size) === "small" ? 0.58
+    : normalizedDigitSize(size) === "medium" ? 0.70
+    : 0.82
+}
+
+function verticalSizeFactor(size) {
+  return normalizedDigitSize(size) === "small" ? 0.40
+    : normalizedDigitSize(size) === "medium" ? 0.48
+    : 0.57
+}
+
+function tooltipFor(use24Hour, showSeconds, digitColor, digitSize) {
   var time = use24Hour ? "24-hour" : "12-hour"
   var seconds = showSeconds ? "seconds on" : "seconds off"
-  return "Neon Clock · " + time + ", " + seconds + ", " + String(digitColor) + " · right-click for options"
+  return "Neon Clock · " + time + ", " + seconds + ", " + String(digitColor)
+    + ", " + normalizedDigitSize(digitSize) + " · right-click for options"
 }
 
 if (typeof module !== "undefined") {
   module.exports = {
+    DIGIT_SIZES: DIGIT_SIZES,
     pad2: pad2,
     meridiemFor: meridiemFor,
     timeParts: timeParts,
     msUntilNextTick: msUntilNextTick,
+    normalizedDigitSize: normalizedDigitSize,
+    horizontalSizeFactor: horizontalSizeFactor,
+    verticalSizeFactor: verticalSizeFactor,
     tooltipFor: tooltipFor
   }
 }

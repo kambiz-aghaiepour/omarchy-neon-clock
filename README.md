@@ -9,7 +9,9 @@ built-in clock: both can be placed in the bar at the same time.
 
 ## Features
 
-- Outlined neon digits in yellow, green, red, purple, or orange.
+- Outlined neon digits in yellow, green, red, purple, orange, white, or black.
+  White and black suit light bars.
+- Three digit sizes: small, medium, large.
 - 24-hour or 12-hour display; 12-hour mode adds AM/PM.
 - Optional seconds.
 - Every changed digit rolls up: the new digit enters from below while the old
@@ -24,7 +26,8 @@ Right-click the clock to open the control panel:
 
 - 24-hour or 12-hour time.
 - Show or hide seconds.
-- Digit color: yellow, green, red, purple, orange.
+- Digit color: yellow, green, red, purple, orange, white, black.
+- Digit size: small, medium, large.
 
 Settings are stored inline on this plugin's entry in
 `~/.config/omarchy/shell.json`:
@@ -34,7 +37,8 @@ Settings are stored inline on this plugin's entry in
   "id": "io.github.kambiz.neon-clock",
   "use24Hour": true,
   "showSeconds": false,
-  "digitColor": "yellow"
+  "digitColor": "yellow",
+  "digitSize": "large"
 }
 ```
 
@@ -82,8 +86,8 @@ It writes `preview/neon-clock-preview.png` using the offscreen Qt platform.
 | `NeonGlyph.qml` | Outlined neon renderer: glow, tube body, and hot filament. |
 | `Glyphs.js` | Centre-line paths for `0`–`9`, `:`, `A`, `P`, `M`. |
 | `Palette.js` | Named digit colors and their body, glow, and filament values. |
-| `ClockModel.js` | Time formatting, AM/PM, tick alignment, tooltip text. |
-| `ControlPanel.qml` | Right-click `PopupCard` with the time and color controls. |
+| `ClockModel.js` | Time formatting, AM/PM, tick alignment, digit-size factors, tooltip text. |
+| `ControlPanel.qml` | Right-click `PopupCard` with the time, color, and size controls. |
 
 ## Update
 

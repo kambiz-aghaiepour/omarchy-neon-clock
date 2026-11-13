@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "id": "io.github.kambiz.neon-clock",
   "name": "Neon Clock",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Kambiz",
   "license": "MIT",
-  "description": "A standalone neon digital clock with five digit colors, 12/24-hour time and optional seconds.",
+  "description": "A standalone neon digital clock with seven digit colors, three sizes, 12/24-hour time and optional seconds.",
   "kinds": [
     "bar-widget"
   ],
@@ -21,7 +21,8 @@
     "defaults": {
       "use24Hour": true,
       "showSeconds": false,
-      "digitColor": "yellow"
+      "digitColor": "yellow",
+      "digitSize": "large"
     },
     "schema": [
       {
@@ -47,10 +48,24 @@
           "green",
           "red",
           "purple",
-          "orange"
+          "orange",
+          "white",
+          "black"
         ],
         "defaultValue": "yellow",
         "description": "Color of the neon tube and its glow."
+      },
+      {
+        "key": "digitSize",
+        "type": "enum",
+        "label": "Digit size",
+        "options": [
+          "small",
+          "medium",
+          "large"
+        ],
+        "defaultValue": "large",
+        "description": "Size of the digits relative to the bar."
       }
     ]
   }
