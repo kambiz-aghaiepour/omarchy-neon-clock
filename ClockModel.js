@@ -41,11 +41,10 @@ function msUntilNextTick(nowMs, step) {
   return safeStep - (nowMs % safeStep)
 }
 
-function tooltipFor(use24Hour, showSeconds, digitStyle) {
+function tooltipFor(use24Hour, showSeconds, digitColor) {
   var time = use24Hour ? "24-hour" : "12-hour"
   var seconds = showSeconds ? "seconds on" : "seconds off"
-  var style = String(digitStyle) === "filled" ? "filled" : "outlined"
-  return "Neon Clock · " + time + ", " + seconds + ", " + style + " · right-click for options"
+  return "Neon Clock · " + time + ", " + seconds + ", " + String(digitColor) + " · right-click for options"
 }
 
 if (typeof module !== "undefined") {

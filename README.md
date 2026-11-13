@@ -9,7 +9,7 @@ built-in clock: both can be placed in the bar at the same time.
 
 ## Features
 
-- Outlined or filled neon digits, switchable from the right-click panel.
+- Outlined neon digits in yellow, green, red, purple, or orange.
 - 24-hour or 12-hour display; 12-hour mode adds AM/PM.
 - Optional seconds.
 - Every changed digit rolls up: the new digit enters from below while the old
@@ -20,10 +20,11 @@ built-in clock: both can be placed in the bar at the same time.
 
 ## Controls
 
-| Input | Action |
-| --- | --- |
-| Right click | Open the control panel (24-hour, seconds, filled digits). |
-| Left click | Cycle between outlined and filled digits. |
+Right-click the clock to open the control panel:
+
+- 24-hour or 12-hour time.
+- Show or hide seconds.
+- Digit color: yellow, green, red, purple, orange.
 
 Settings are stored inline on this plugin's entry in
 `~/.config/omarchy/shell.json`:
@@ -33,7 +34,7 @@ Settings are stored inline on this plugin's entry in
   "id": "io.github.kambiz.neon-clock",
   "use24Hour": true,
   "showSeconds": false,
-  "digitStyle": "outlined"
+  "digitColor": "yellow"
 }
 ```
 
@@ -61,9 +62,9 @@ omarchy plugin add "$(pwd)" --enable
 omarchy plugin validate .
 ```
 
-`./tests/run` validates the manifest, runs the pure formatting and glyph tests
-with Node when available, and lints the standalone QML. The preview harness is
-separate:
+`./tests/run` validates the manifest, runs the pure formatting, glyph, palette
+and manifest-consistency tests with Node when available, and lints the
+standalone QML. The preview harness is separate:
 
 ```bash
 ./preview/run
@@ -78,14 +79,11 @@ It writes `preview/neon-clock-preview.png` using the offscreen Qt platform.
 | `BarWidget.qml` | Hosted bar entry: ticking, settings, click handling, popup lifecycle. |
 | `NeonTime.qml` | Horizontal and vertical layout of digits, colon, and meridiem. |
 | `NeonDigit.qml` | One clipped cell with the vertical roll animation. |
-| `NeonGlyph.qml` | Neon renderer: glow, tube body, and hot centre. |
+| `NeonGlyph.qml` | Outlined neon renderer: glow, tube body, and hot filament. |
 | `Glyphs.js` | Centre-line paths for `0`–`9`, `:`, `A`, `P`, `M`. |
+| `Palette.js` | Named digit colors and their body, glow, and filament values. |
 | `ClockModel.js` | Time formatting, AM/PM, tick alignment, tooltip text. |
-| `ControlPanel.qml` | Right-click `PopupCard` with the three toggles. |
-
-The outlined and filled styles stroke the same centre-line skeleton at
-different widths, so switching style does not change layout or animation
-geometry.
+| `ControlPanel.qml` | Right-click `PopupCard` with the time and color controls. |
 
 ## Update
 

@@ -9,7 +9,9 @@ Item {
   property date date: new Date()
   property bool use24Hour: true
   property bool showSeconds: false
-  property string digitStyle: "outlined"
+  property color digitColor: "#ffd24a"
+  property color glowColor: "#ffb000"
+  property color hotColor: "#fff4b8"
   property real digitHeight: 22
   property bool vertical: false
   property int rollDuration: 200
@@ -31,52 +33,68 @@ Item {
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.hourTens
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
     }
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.hourUnits
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
     }
 
     NeonGlyph {
       height: root.digitHeight
       glyph: ":"
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
     }
 
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.minuteTens
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
     }
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.minuteUnits
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
     }
 
     NeonGlyph {
       height: root.digitHeight
       glyph: ":"
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       visible: root.showSeconds
     }
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.secondTens
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
       visible: root.showSeconds
     }
     NeonDigit {
       height: root.digitHeight
       glyph: root.parts.secondUnits
-      style: root.digitStyle
+      digitColor: root.digitColor
+      glowColor: root.glowColor
+      hotColor: root.hotColor
       rollDuration: root.rollDuration
       visible: root.showSeconds
     }
@@ -94,12 +112,16 @@ Item {
         NeonGlyph {
           height: root.meridiemHeight
           glyph: root.parts.meridiemLetters.length > 0 ? root.parts.meridiemLetters[0] : ""
-          style: root.digitStyle
+          digitColor: root.digitColor
+          glowColor: root.glowColor
+          hotColor: root.hotColor
         }
         NeonGlyph {
           height: root.meridiemHeight
           glyph: root.parts.meridiemLetters.length > 1 ? root.parts.meridiemLetters[1] : ""
-          style: root.digitStyle
+          digitColor: root.digitColor
+          glowColor: root.glowColor
+          hotColor: root.hotColor
         }
       }
     }
@@ -117,13 +139,17 @@ Item {
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.hourTens
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.hourUnits
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
     }
@@ -134,13 +160,17 @@ Item {
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.minuteTens
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.minuteUnits
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
     }
@@ -152,13 +182,17 @@ Item {
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.secondTens
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
       NeonDigit {
         height: root.digitHeight
         glyph: root.parts.secondUnits
-        style: root.digitStyle
+        digitColor: root.digitColor
+        glowColor: root.glowColor
+        hotColor: root.hotColor
         rollDuration: root.rollDuration
       }
     }
@@ -175,12 +209,16 @@ Item {
         NeonGlyph {
           height: root.meridiemHeight
           glyph: root.parts.meridiemLetters.length > 0 ? root.parts.meridiemLetters[0] : ""
-          style: root.digitStyle
+          digitColor: root.digitColor
+          glowColor: root.glowColor
+          hotColor: root.hotColor
         }
         NeonGlyph {
           height: root.meridiemHeight
           glyph: root.parts.meridiemLetters.length > 1 ? root.parts.meridiemLetters[1] : ""
-          style: root.digitStyle
+          digitColor: root.digitColor
+          glowColor: root.glowColor
+          hotColor: root.hotColor
         }
       }
     }

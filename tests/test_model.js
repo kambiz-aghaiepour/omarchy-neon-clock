@@ -1,7 +1,9 @@
 var assert = require("assert")
+var fs = require("fs")
 var path = require("path")
 var Model = require(path.join(__dirname, "..", "ClockModel.js"))
 var Glyphs = require(path.join(__dirname, "..", "Glyphs.js"))
+var Palette = require(path.join(__dirname, "..", "Palette.js"))
 
 function at(hours, minutes, seconds) {
   return new Date(2026, 10, 12, hours, minutes, seconds || 0)
@@ -40,19 +42,36 @@ assert.strictEqual(Model.msUntilNextTick(999, 1000), 1)
 assert.strictEqual(Model.msUntilNextTick(61000, 60000), 59000)
 
 // Tooltip names the actual state.
-assert.ok(Model.tooltipFor(true, false, "outlined").indexOf("24-hour") !== -1)
-assert.ok(Model.tooltipFor(false, true, "filled").indexOf("12-hour") !== -1)
-assert.ok(Model.tooltipFor(false, true, "filled").indexOf("filled") !== -1)
+assert.ok(Model.tooltipFor(true, false, "yellow").indexOf("24-hour") !== -1)
+assert.ok(Model.tooltipFor(false, true, "red").indexOf("12-hour") !== -1)
+assert.ok(Model.tooltipFor(false, true, "red").indexOf("red") !== -1)
 
 // Every glyph the clock can render has a path and a positive box width.
-var required = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", "A", "P", "M"]
-required.forEach(function(glyph) {
+var requiredGlyphs = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", "A", "P", "M"]
+requiredGlyphs.forEach(function(glyph) {
   assert.ok(Glyphs.pathFor(glyph).length > 0, "missing path for " + glyph)
   assert.ok(Glyphs.widthFor(glyph) > 0, "missing width for " + glyph)
 })
-assert.strictEqual(Glyphs.normalizedStyle("filled"), "filled")
-assert.strictEqual(Glyphs.normalizedStyle("anything-else"), "outlined")
-assert.ok(Glyphs.filledColonPath(":").length > 0)
-assert.strictEqual(Glyphs.filledColonPath("8"), "")
 
-console.log("Model tests passed: format, meridiem, seconds, ticks, glyphs.")
+// Palette: five named colours, yellow fallback, and complete paint triples.
+assert.deepStrictEqual(Palette.ORDER, ["yellow", "green", "red", "purple", "orange"])
+Palette.ORDER.forEach(function(name) {
+  var color = Palette.colorFor(name)
+  assert.ok(color.body && color.glow && color.hot, "incomplete palette for " + name)
+})
+assert.strictEqual(Palette.normalizedColor("red"), "red")
+assert.strictEqual(Palette.normalizedColor("RED"), "red")
+assert.strictEqual(Palette.normalizedColor("cyan"), "yellow")
+assert.strictEqual(Palette.normalizedColor(undefined), "yellow")
+assert.strictEqual(Palette.labelFor("purple"), "Purple")
+
+// Manifest options must stay in step with the panel's palette order.
+var manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "manifest.json"), "utf8"))
+var schema = manifest.barWidget.schema
+var colorSchema = schema.filter(function(entry) { return entry.key === "digitColor" })[0]
+assert.ok(colorSchema, "manifest is missing digitColor")
+assert.deepStrictEqual(colorSchema.options, Palette.ORDER)
+assert.ok(Palette.ORDER.indexOf(manifest.barWidget.defaults.digitColor) !== -1)
+assert.ok(!schema.some(function(entry) { return entry.key === "digitStyle" }), "digitStyle should be gone")
+
+console.log("Model tests passed: format, meridiem, seconds, ticks, glyphs, palette, manifest.")

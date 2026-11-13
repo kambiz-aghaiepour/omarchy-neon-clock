@@ -7,7 +7,9 @@ Item {
   id: root
 
   property string glyph: ""
-  property string style: "outlined"
+  property color digitColor: "#ffd24a"
+  property color glowColor: "#ffb000"
+  property color hotColor: "#fff4b8"
   property int rollDuration: 200
 
   implicitWidth: entering.implicitWidth
@@ -27,7 +29,9 @@ Item {
     y: 0
     height: root.height
     glyph: internal.leaving
-    style: root.style
+    digitColor: root.digitColor
+    glowColor: root.glowColor
+    hotColor: root.hotColor
     visible: internal.leaving !== ""
   }
 
@@ -38,7 +42,9 @@ Item {
     y: 0
     height: root.height
     glyph: internal.shown
-    style: root.style
+    digitColor: root.digitColor
+    glowColor: root.glowColor
+    hotColor: root.hotColor
   }
 
   onGlyphChanged: {

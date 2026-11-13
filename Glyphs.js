@@ -1,14 +1,11 @@
 // Skeleton geometry for the neon glyphs. Coordinates are in a 200-unit-tall
 // view box; NeonGlyph scales the whole box to the bar. Each character is a
-// centre-line path: outlined style strokes it thinly, filled style strokes the
-// same path thickly, so both styles share one shape and one animation.
+// centre-line path that the renderer strokes with glow and a hot filament.
 //
 // Paths use round caps and joins. Digits all use the same 148-unit-wide box so
 // a changing digit never widens or narrows its cell.
 
 var HEIGHT = 200
-
-var FILLED_COLON = "M 24 52 L 36 52 Q 44 52 44 60 L 44 76 Q 44 84 36 84 L 24 84 Q 16 84 16 76 L 16 60 Q 16 52 24 52 Z M 24 116 L 36 116 Q 44 116 44 124 L 44 140 Q 44 148 36 148 L 24 148 Q 16 148 16 140 L 16 124 Q 16 116 24 116 Z"
 
 var GLYPHS = {
   "0": {
@@ -79,21 +76,11 @@ function widthFor(glyph) {
   return entry ? entry.width : 0
 }
 
-function filledColonPath(glyph) {
-  return String(glyph) === ":" ? FILLED_COLON : ""
-}
-
-function normalizedStyle(style) {
-  return String(style) === "filled" ? "filled" : "outlined"
-}
-
 if (typeof module !== "undefined") {
   module.exports = {
     HEIGHT: HEIGHT,
     GLYPHS: GLYPHS,
     pathFor: pathFor,
-    widthFor: widthFor,
-    filledColonPath: filledColonPath,
-    normalizedStyle: normalizedStyle
+    widthFor: widthFor
   }
 }

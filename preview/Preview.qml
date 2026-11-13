@@ -1,13 +1,15 @@
 import QtQuick
 import ".."
+import "../Palette.js" as Palette
 
-// Offscreen preview: renders both digit styles at inspection size and at bar
-// size. Run ./preview/run to write preview/neon-clock-preview.png.
+// Offscreen preview: renders the bar-size clock, every digit colour, the
+// vertical layout, and the full glyph set. Run ./preview/run to write
+// preview/neon-clock-preview.png.
 Item {
   id: root
 
   width: 940
-  height: 680
+  height: 600
 
   property date sample: new Date(2026, 10, 12, 21, 47, 36)
 
@@ -16,14 +18,16 @@ Item {
     color: "#070d14"
 
     Column {
-      anchors.centerIn: parent
-      spacing: 26
+      anchors.top: parent.top
+      anchors.topMargin: 24
+      anchors.horizontalCenter: parent.horizontalCenter
+      spacing: 18
 
       Row {
         spacing: 28
         Text {
           width: 130
-          text: "outlined"
+          text: "yellow, large"
           color: "#6f8a9a"
           font.pixelSize: 14
         }
@@ -31,8 +35,10 @@ Item {
           date: root.sample
           use24Hour: true
           showSeconds: true
-          digitStyle: "outlined"
-          digitHeight: 82
+          digitHeight: 70
+          digitColor: Palette.colorFor("yellow").body
+          glowColor: Palette.colorFor("yellow").glow
+          hotColor: Palette.colorFor("yellow").hot
         }
       }
 
@@ -40,24 +46,7 @@ Item {
         spacing: 28
         Text {
           width: 130
-          text: "filled"
-          color: "#6f8a9a"
-          font.pixelSize: 14
-        }
-        NeonTime {
-          date: root.sample
-          use24Hour: true
-          showSeconds: true
-          digitStyle: "filled"
-          digitHeight: 82
-        }
-      }
-
-      Row {
-        spacing: 28
-        Text {
-          width: 130
-          text: "12-hour, bar size"
+          text: "bar size, 12-hour"
           color: "#6f8a9a"
           font.pixelSize: 14
         }
@@ -65,25 +54,40 @@ Item {
           date: new Date(2026, 10, 12, 9, 5, 0)
           use24Hour: false
           showSeconds: false
-          digitStyle: "outlined"
-          digitHeight: 22
+          digitHeight: 21
+          digitColor: Palette.colorFor("yellow").body
+          glowColor: Palette.colorFor("yellow").glow
+          hotColor: Palette.colorFor("yellow").hot
         }
       }
 
       Row {
-        spacing: 28
-        Text {
-          width: 130
-          text: "filled, bar size"
-          color: "#6f8a9a"
-          font.pixelSize: 14
-        }
-        NeonTime {
-          date: new Date(2026, 10, 12, 9, 5, 0)
-          use24Hour: false
-          showSeconds: false
-          digitStyle: "filled"
-          digitHeight: 22
+        spacing: 24
+
+        Repeater {
+          model: Palette.ORDER
+
+          delegate: Column {
+            id: swatchColumn
+            required property string modelData
+            spacing: 4
+
+            Text {
+              anchors.horizontalCenter: parent.horizontalCenter
+              text: Palette.labelFor(swatchColumn.modelData)
+              color: "#6f8a9a"
+              font.pixelSize: 13
+            }
+            NeonTime {
+              date: root.sample
+              use24Hour: true
+              showSeconds: false
+              digitHeight: 24
+              digitColor: Palette.colorFor(swatchColumn.modelData).body
+              glowColor: Palette.colorFor(swatchColumn.modelData).glow
+              hotColor: Palette.colorFor(swatchColumn.modelData).hot
+            }
+          }
         }
       }
 
@@ -99,16 +103,18 @@ Item {
           date: new Date(2026, 10, 12, 9, 5, 42)
           use24Hour: false
           showSeconds: true
-          digitStyle: "outlined"
-          digitHeight: 17
+          digitHeight: 15
           vertical: true
+          digitColor: Palette.colorFor("yellow").body
+          glowColor: Palette.colorFor("yellow").glow
+          hotColor: Palette.colorFor("yellow").hot
         }
       }
     }
 
     Column {
       anchors.bottom: parent.bottom
-      anchors.bottomMargin: 22
+      anchors.bottomMargin: 20
       anchors.horizontalCenter: parent.horizontalCenter
       spacing: 8
 
@@ -119,19 +125,9 @@ Item {
           delegate: NeonGlyph {
             height: 34
             glyph: modelData
-            style: "outlined"
-          }
-        }
-      }
-
-      Row {
-        spacing: 2
-        Repeater {
-          model: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", "A", "P", "M"]
-          delegate: NeonGlyph {
-            height: 34
-            glyph: modelData
-            style: "filled"
+            digitColor: Palette.colorFor("yellow").body
+            glowColor: Palette.colorFor("yellow").glow
+            hotColor: Palette.colorFor("yellow").hot
           }
         }
       }

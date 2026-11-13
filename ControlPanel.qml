@@ -2,6 +2,7 @@ import QtQuick
 import qs.Commons
 import qs.Commons as Commons
 import qs.Ui
+import "Palette.js" as Palette
 
 // Right-click control panel for the neon clock. The bar injects the widget so
 // every control persists through the same inline shell.json entry the digits
@@ -15,6 +16,8 @@ PopupCard {
   bar: hostWidget ? hostWidget.bar : null
   owner: hostWidget
   open: hostWidget ? hostWidget.panelOpen : false
+
+  readonly property string activeColor: hostWidget ? hostWidget.digitColor : "yellow"
 
   contentWidth: fittedContentWidth(Style.space(264))
   contentHeight: fittedContentHeight(column.implicitHeight)
@@ -50,13 +53,61 @@ PopupCard {
       onClicked: if (root.hostWidget) root.hostWidget.setOption("showSeconds", !root.hostWidget.showSeconds)
     }
 
-    Toggle {
+    Column {
       width: column.width
-      label: "Filled digits"
-      description: "Off draws outlined neon tubes; on fills them in."
-      checked: root.hostWidget ? root.hostWidget.digitStyle === "filled" : false
-      onClicked: if (root.hostWidget)
-        root.hostWidget.setOption("digitStyle", root.hostWidget.digitStyle === "filled" ? "outlined" : "filled")
+      spacing: Style.spacing.xs
+
+      Text {
+        text: "Digit color · " + Palette.labelFor(root.activeColor)
+        textFormat: Text.PlainText
+        color: Commons.Color.foreground
+        font.family: Style.font.family
+        font.pixelSize: Style.font.body
+        font.bold: true
+      }
+
+      Row {
+        spacing: Style.spacing.sm
+
+        Repeater {
+          model: Palette.ORDER
+
+          delegate: Item {
+            id: swatch
+
+            required property string modelData
+
+            readonly property bool selected: root.activeColor === modelData
+
+            width: Style.space(30)
+            height: width
+
+            Rectangle {
+              anchors.fill: parent
+              radius: width / 2
+              color: "transparent"
+              border.width: swatch.selected ? 2 : 1
+              border.color: swatch.selected
+                ? Commons.Color.foreground
+                : Qt.rgba(Commons.Color.foreground.r, Commons.Color.foreground.g, Commons.Color.foreground.b, 0.28)
+            }
+
+            Rectangle {
+              anchors.centerIn: parent
+              width: parent.width - Style.space(8)
+              height: width
+              radius: width / 2
+              color: Palette.colorFor(swatch.modelData).body
+            }
+
+            MouseArea {
+              anchors.fill: parent
+              cursorShape: Qt.PointingHandCursor
+              onClicked: if (root.hostWidget) root.hostWidget.setOption("digitColor", swatch.modelData)
+            }
+          }
+        }
+      }
     }
   }
 }

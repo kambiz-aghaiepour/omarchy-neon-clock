@@ -1,5 +1,6 @@
 import QtQuick
 import ".."
+import "../Palette.js" as Palette
 
 // Motion proof: changes a digit, then grabs the cell 100 ms into the 200 ms
 // roll. The capture should show the old glyph above the new one, both clipped
@@ -19,10 +20,12 @@ Item {
     id: digit
 
     anchors.centerIn: parent
-    width: 120
+    width: 150
     height: 190
     glyph: "7"
-    style: "filled"
+    digitColor: Palette.colorFor("red").body
+    glowColor: Palette.colorFor("red").glow
+    hotColor: Palette.colorFor("red").hot
     rollDuration: 200
   }
 
