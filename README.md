@@ -50,7 +50,7 @@ Settings are stored inline on this plugin's entry in
 ## Installation
 
 ```bash
-omarchy plugin add https://github.com/kambiz/omarchy-neon-clock.git --enable
+omarchy plugin add https://github.com/kambiz-aghaiepour/omarchy-neon-clock.git --enable
 ```
 
 For a local checkout:
