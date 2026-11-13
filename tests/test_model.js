@@ -94,6 +94,9 @@ assert.ok(sizeSchema, "manifest is missing digitSize")
 assert.deepStrictEqual(sizeSchema.options, Model.DIGIT_SIZES)
 assert.strictEqual(sizeSchema.defaultValue, "large")
 assert.strictEqual(manifest.barWidget.defaults.digitSize, "large")
+// The marketplace validator accepts only left/center/right; center maps to
+// centerEnd in Omarchy, which is the placement this plugin wants.
+assert.ok(["left", "center", "right"].indexOf(manifest.barWidget.defaultSection) !== -1)
 assert.ok(!schema.some(function(entry) { return entry.key === "digitStyle" }), "digitStyle should be gone")
 
 console.log("Model tests passed: format, meridiem, seconds, ticks, glyphs, palette, sizes, manifest.")

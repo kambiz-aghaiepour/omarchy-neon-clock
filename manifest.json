@@ -17,7 +17,7 @@
     "description": "Neon tube digits that roll when the time changes.",
     "category": "Time",
     "allowMultiple": false,
-    "defaultSection": "centerEnd",
+    "defaultSection": "center",
     "defaults": {
       "use24Hour": true,
       "showSeconds": false,
