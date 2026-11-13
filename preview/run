@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$root"
+
+if ! command -v qml6 >/dev/null 2>&1; then
+  printf 'qml6 not found: install qt6-declarative to render the preview\n' >&2
+  exit 1
+fi
+
+QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software qml6 Preview.qml
+printf 'Wrote %s/neon-clock-preview.png\n' "$root"

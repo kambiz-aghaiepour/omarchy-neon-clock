@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+
+python3 "$root/scripts/validate_manifest.py" "$root"
+python3 -m json.tool "$root/manifest.json" >/dev/null
+
+
+if command -v node >/dev/null 2>&1; then
+  node "$root/tests/test_model.js"
+else
+  printf 'node not found: skipped pure model tests\n'
+fi
+
+qmllint_bin="$(command -v qmllint || command -v qmllint6 || true)"
+if [ -z "$qmllint_bin" ] && [ -x /usr/lib/qt6/bin/qmllint ]; then
+  qmllint_bin=/usr/lib/qt6/bin/qmllint
+fi
+if [ -n "$qmllint_bin" ]; then
+  "$qmllint_bin" "$root/NeonGlyph.qml" "$root/NeonDigit.qml" "$root/NeonTime.qml"
+else
+  printf 'qmllint not found: skipped pure QML lint\n'
+fi
+
+
+bash -n "$root/preview/run"
+bash -n "$root/tests/run"
+
+if command -v omarchy >/dev/null 2>&1; then
+  omarchy plugin validate "$root"
+fi
+
+printf 'All portable plugin checks passed.\n'

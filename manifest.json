@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.kambiz.neon-clock",
+  "name": "Neon Clock",
+  "version": "0.1.0",
+  "author": "Kambiz",
+  "license": "MIT",
+  "description": "A standalone neon digital clock with outlined or filled digits, 12/24-hour time and optional seconds.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Neon Clock",
+    "description": "Neon tube digits that roll when the time changes.",
+    "category": "Time",
+    "allowMultiple": false,
+    "defaultSection": "centerEnd",
+    "defaults": {
+      "use24Hour": true,
+      "showSeconds": false,
+      "digitStyle": "outlined"
+    },
+    "schema": [
+      {
+        "key": "use24Hour",
+        "type": "boolean",
+        "label": "24-hour clock",
+        "defaultValue": true,
+        "description": "Off shows 12-hour time with AM/PM."
+      },
+      {
+        "key": "showSeconds",
+        "type": "boolean",
+        "label": "Show seconds",
+        "defaultValue": false,
+        "description": "Adds a seconds pair and rolls it every second."
+      },
+      {
+        "key": "digitStyle",
+        "type": "enum",
+        "label": "Digit style",
+        "options": [
+          "outlined",
+          "filled"
+        ],
+        "defaultValue": "outlined",
+        "description": "Outlined draws hollow neon tubes; filled draws solid ones."
+      }
+    ]
+  }
+}
